@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestión Comercial Carne</title>
-
+<title>VENTURA</title>
 <style>
 *{
     margin:0;
@@ -104,17 +104,14 @@ table td{
 <body>
 
 <header>
-<h1>Gestión Comercial de Carne</h1>
-</header>
+<h1>VENTURA</h1></header>
 
 <nav>
-<button onclick="showSection('pedidos')">Pedidos</button>
-<button onclick="showSection('calendario')">Calendario</button>
-<button onclick="showSection('clientes')">Clientes</button>
-<button onclick="showSection('productos')">Productos</button>
-<button onclick="showSection('estadisticas')">Estadísticas</button>
+<button onclick="mostrar('pedidos')">Pedidos</button>
+<button onclick="mostrar('calendario')">Calendario</button>
+<button onclick="mostrar('clientes')">Clientes</button>
+<button onclick="mostrar('productos')">Productos</button>
 </nav>
-
 <!-- PEDIDOS -->
 <div id="pedidos" class="section active">
 
@@ -291,7 +288,23 @@ Borrar Todos
 <p>Producto más vendido: -</p>
 
 </div>
+<div id="calendario" class="panel">
 
+<h2>Calendario de Pedidos</h2>
+
+<input type="date" id="fechaConsulta">
+
+<button class="btn" onclick="verPedidosFecha()">
+Ver Pedidos
+</button>
+
+<button class="btn" onclick="descargarPDF()">
+Descargar PDF
+</button>
+
+<div id="resultadoCalendario"></div>
+
+</div>
 </div>
 
 <script>
