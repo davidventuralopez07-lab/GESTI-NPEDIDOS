@@ -1,61 +1,102 @@
 let clientes = JSON.parse(localStorage.getItem("clientes")) || [];
 let productos = JSON.parse(localStorage.getItem("productos")) || [];
+let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+
+let pedidoActual = [];
+
+/* =========================
+   NAVEGACIÓN
+========================= */
+
+function mostrar(sectionId){
+
+    document.querySelectorAll(".section")
+    .forEach(section=>{
+        section.classList.remove("active");
+    });
+
+    document
+    .getElementById(sectionId)
+    .classList.add("active");
+}
 
 /* =========================
    GUARDAR DATOS
 ========================= */
 
-function guardarClientes() {
-    localStorage.setItem("clientes", JSON.stringify(clientes));
+function guardarClientes(){
+    localStorage.setItem(
+        "clientes",
+        JSON.stringify(clientes)
+    );
 }
 
-function guardarProductos() {
-    localStorage.setItem("productos", JSON.stringify(productos));
+function guardarProductos(){
+    localStorage.setItem(
+        "productos",
+        JSON.stringify(productos)
+    );
+}
+
+function guardarPedidos(){
+    localStorage.setItem(
+        "pedidos",
+        JSON.stringify(pedidos)
+    );
 }
 
 /* =========================
    CLIENTES
 ========================= */
 
-function agregarCliente() {
+function agregarCliente(){
 
-    const nombre = document.getElementById("clienteNombre").value.trim();
-    const direccion = document.getElementById("clienteDireccion").value.trim();
+    const nombre =
+    document.getElementById("clienteNombre").value.trim();
 
-    if (nombre === "" || direccion === "") {
+    const direccion =
+    document.getElementById("clienteDireccion").value.trim();
+
+    if(nombre === "" || direccion === ""){
         alert("Completa todos los campos");
         return;
     }
 
     clientes.push({
-        nombre: nombre,
-        direccion: direccion
+        nombre,
+        direccion
     });
 
     guardarClientes();
+
     renderClientes();
+
+    actualizarSelects();
 
     document.getElementById("clienteNombre").value = "";
     document.getElementById("clienteDireccion").value = "";
 }
 
-function renderClientes() {
+function renderClientes(){
 
-    const tabla = document.getElementById("tablaClientes");
+    const tabla =
+    document.getElementById("tablaClientes");
 
-    if (!tabla) return;
+    if(!tabla) return;
 
     tabla.innerHTML = "";
 
-    clientes.forEach((cliente, index) => {
+    clientes.forEach((cliente,index)=>{
 
         tabla.innerHTML += `
         <tr>
             <td>${cliente.nombre}</td>
             <td>${cliente.direccion}</td>
             <td>
-                <button class="delete" onclick="eliminarCliente(${index})">
-                    X
+                <button
+                class="delete"
+                onclick="eliminarCliente(${index})">
+                X
                 </button>
             </td>
         </tr>
@@ -63,69 +104,84 @@ function renderClientes() {
     });
 }
 
-function eliminarCliente(index) {
+function eliminarCliente(index){
 
-    clientes.splice(index, 1);
+    clientes.splice(index,1);
 
     guardarClientes();
+
     renderClientes();
+
+    actualizarSelects();
 }
 
-function borrarClientes() {
+function borrarClientes(){
 
-    if (!confirm("¿Borrar todos los clientes?")) return;
+    if(!confirm("¿Borrar todos los clientes?")) return;
 
     clientes = [];
 
     guardarClientes();
+
     renderClientes();
+
+    actualizarSelects();
 }
 
 /* =========================
    PRODUCTOS
 ========================= */
 
-function agregarProducto() {
+function agregarProducto(){
 
-    const nombre = document.getElementById("productoNombre").value.trim();
-    const precio = parseFloat(
+    const nombre =
+    document.getElementById("productoNombre").value.trim();
+
+    const precio =
+    parseFloat(
         document.getElementById("productoPrecio").value
     );
 
-    if (nombre === "" || isNaN(precio)) {
+    if(nombre === "" || isNaN(precio)){
         alert("Completa todos los campos");
         return;
     }
 
     productos.push({
-        nombre: nombre,
-        precio: precio
+        nombre,
+        precio
     });
 
     guardarProductos();
+
     renderProductos();
+
+    actualizarSelects();
 
     document.getElementById("productoNombre").value = "";
     document.getElementById("productoPrecio").value = "";
 }
 
-function renderProductos() {
+function renderProductos(){
 
-    const tabla = document.getElementById("tablaProductos");
+    const tabla =
+    document.getElementById("tablaProductos");
 
-    if (!tabla) return;
+    if(!tabla) return;
 
     tabla.innerHTML = "";
 
-    productos.forEach((producto, index) => {
+    productos.forEach((producto,index)=>{
 
         tabla.innerHTML += `
         <tr>
             <td>${producto.nombre}</td>
             <td>${producto.precio.toFixed(2)} €</td>
             <td>
-                <button class="delete" onclick="eliminarProducto(${index})">
-                    X
+                <button
+                class="delete"
+                onclick="eliminarProducto(${index})">
+                X
                 </button>
             </td>
         </tr>
@@ -133,48 +189,214 @@ function renderProductos() {
     });
 }
 
-function eliminarProducto(index) {
+function eliminarProducto(index){
 
-    productos.splice(index, 1);
+    productos.splice(index,1);
 
     guardarProductos();
+
     renderProductos();
+
+    actualizarSelects();
 }
 
-function borrarProductos() {
+function borrarProductos(){
 
-    if (!confirm("¿Borrar todos los productos?")) return;
+    if(!confirm("¿Borrar todos los productos?")) return;
 
     productos = [];
 
     guardarProductos();
+
     renderProductos();
+
+    actualizarSelects();
 }
 
 /* =========================
-   NAVEGACIÓN
+   SELECTS PEDIDOS
 ========================= */
 
-function mostrar(sectionId) {
+function actualizarSelects(){
 
-    document.querySelectorAll(".section")
-        .forEach(section => {
-            section.classList.remove("active");
-        });
+    const selectCliente =
+    document.getElementById("pedidoCliente");
 
-    const destino = document.getElementById(sectionId);
+    const selectProducto =
+    document.getElementById("pedidoProducto");
 
-    if (destino) {
-        destino.classList.add("active");
+    if(!selectCliente || !selectProducto) return;
+
+    selectCliente.innerHTML = "";
+    selectProducto.innerHTML = "";
+
+    clientes.forEach((cliente,index)=>{
+
+        selectCliente.innerHTML += `
+        <option value="${index}">
+        ${cliente.nombre}
+        </option>
+        `;
+    });
+
+    productos.forEach((producto,index)=>{
+
+        selectProducto.innerHTML += `
+        <option value="${index}">
+        ${producto.nombre}
+        </option>
+        `;
+    });
+}
+
+/* =========================
+   PEDIDOS
+========================= */
+
+function agregarLineaPedido(){
+
+    const productoIndex =
+    document.getElementById("pedidoProducto").value;
+
+    const kg =
+    parseFloat(
+        document.getElementById("pedidoKg").value
+    );
+
+    if(isNaN(kg) || kg <= 0){
+        alert("Introduce los kilos");
+        return;
     }
+
+    const producto =
+    productos[productoIndex];
+
+    if(!producto){
+        alert("No hay productos");
+        return;
+    }
+
+    const subtotal =
+    producto.precio * kg;
+
+    pedidoActual.push({
+        producto: producto.nombre,
+        kg,
+        precio: producto.precio,
+        subtotal
+    });
+
+    renderPedidoActual();
+
+    document.getElementById("pedidoKg").value = "";
+}
+
+function renderPedidoActual(){
+
+    const tabla =
+    document.getElementById("lineasPedido");
+
+    if(!tabla) return;
+
+    tabla.innerHTML = "";
+
+    let total = 0;
+
+    pedidoActual.forEach(linea=>{
+
+        total += linea.subtotal;
+
+        tabla.innerHTML += `
+        <tr>
+            <td>${linea.producto}</td>
+            <td>${linea.kg}</td>
+            <td>${linea.precio.toFixed(2)} €</td>
+            <td>${linea.subtotal.toFixed(2)} €</td>
+        </tr>
+        `;
+    });
+
+    document.getElementById("totalPedido")
+    .textContent =
+    total.toFixed(2);
+}
+
+function guardarPedido(){
+
+    const fecha =
+    document.getElementById("pedidoFecha").value;
+
+    const clienteIndex =
+    document.getElementById("pedidoCliente").value;
+
+    if(!fecha){
+        alert("Selecciona una fecha");
+        return;
+    }
+
+    if(pedidoActual.length === 0){
+        alert("Añade productos");
+        return;
+    }
+
+    let total = 0;
+
+    pedidoActual.forEach(linea=>{
+        total += linea.subtotal;
+    });
+
+    pedidos.push({
+        fecha,
+        cliente:
+        clientes[clienteIndex].nombre,
+        lineas:[...pedidoActual],
+        total
+    });
+
+    guardarPedidos();
+
+    pedidoActual = [];
+
+    renderPedidoActual();
+
+    renderPedidos();
+
+    alert("Pedido guardado");
+}
+
+function renderPedidos(){
+
+    const tabla =
+    document.getElementById("tablaPedidos");
+
+    if(!tabla) return;
+
+    tabla.innerHTML = "";
+
+    pedidos.forEach(pedido=>{
+
+        tabla.innerHTML += `
+        <tr>
+            <td>${pedido.fecha}</td>
+            <td>${pedido.cliente}</td>
+            <td>${pedido.total.toFixed(2)} €</td>
+        </tr>
+        `;
+    });
 }
 
 /* =========================
    INICIO
 ========================= */
 
-window.onload = function () {
+window.onload = function(){
 
     renderClientes();
+
     renderProductos();
+
+    actualizarSelects();
+
+    renderPedidos();
+
 };
