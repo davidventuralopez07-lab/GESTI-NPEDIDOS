@@ -116,39 +116,82 @@ table td{
 <div id="pedidos" class="section active">
 
 <div class="card">
+
 <h2>Nuevo Pedido</h2>
 
 <label>Fecha</label>
-<input type="date">
+<input type="date" id="pedidoFecha">
 
 <label>Cliente</label>
-<input type="text" placeholder="Buscar cliente">
+<select id="pedidoCliente">
+</select>
 
 <label>Producto</label>
-<select>
-<option>Seleccionar producto</option>
+<select id="pedidoProducto">
 </select>
 
 <label>Kilos</label>
-<input type="number">
+<input type="number" id="pedidoKg">
 
-<button class="action">
+<button class="action" onclick="agregarLineaPedido()">
 Añadir Producto
 </button>
 
 <br><br>
 
-<h3>Total Pedido: 0 €</h3>
+<table>
+
+<thead>
+<tr>
+<th>Producto</th>
+<th>Kg</th>
+<th>Precio/Kg</th>
+<th>Subtotal</th>
+</tr>
+</thead>
+
+<tbody id="lineasPedido">
+</tbody>
+
+</table>
 
 <br>
 
-<button class="action">
+<h3>
+Total Pedido:
+<span id="totalPedido">0.00</span> €
+</h3>
+
+<br>
+
+<button class="action" onclick="guardarPedido()">
 Guardar Pedido
 </button>
-</div>
 
 </div>
 
+<div class="card">
+
+<h2>Pedidos Guardados</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>Fecha</th>
+<th>Cliente</th>
+<th>Total</th>
+</tr>
+</thead>
+
+<tbody id="tablaPedidos">
+</tbody>
+
+</table>
+
+</div>
+
+</div>
 <!-- CALENDARIO -->
 <div id="calendario" class="section">
 
