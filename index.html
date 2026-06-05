@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión Comercial Carne</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f5f5;
+}
+
+header{
+    background:#b71c1c;
+    color:white;
+    padding:15px;
+}
+
+header h1{
+    text-align:center;
+}
+
+nav{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    background:#222;
+    padding:10px;
+}
+
+nav button{
+    background:none;
+    border:none;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+}
+
+nav button:hover{
+    color:#ff5252;
+}
+
+.section{
+    display:none;
+    padding:20px;
+}
+
+.active{
+    display:block;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+input, select{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+}
+
+button.action{
+    background:#b71c1c;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+button.delete{
+    background:red;
+    color:white;
+    border:none;
+    padding:5px 10px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th,
+table td{
+    border:1px solid #ddd;
+    padding:10px;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Gestión Comercial de Carne</h1>
+</header>
+
+<nav>
+<button onclick="showSection('pedidos')">Pedidos</button>
+<button onclick="showSection('calendario')">Calendario</button>
+<button onclick="showSection('clientes')">Clientes</button>
+<button onclick="showSection('productos')">Productos</button>
+<button onclick="showSection('estadisticas')">Estadísticas</button>
+</nav>
+
+<!-- PEDIDOS -->
+<div id="pedidos" class="section active">
+
+<div class="card">
+<h2>Nuevo Pedido</h2>
+
+<label>Fecha</label>
+<input type="date">
+
+<label>Cliente</label>
+<input type="text" placeholder="Buscar cliente">
+
+<label>Producto</label>
+<select>
+<option>Seleccionar producto</option>
+</select>
+
+<label>Kilos</label>
+<input type="number">
+
+<button class="action">
+Añadir Producto
+</button>
+
+<br><br>
+
+<h3>Total Pedido: 0 €</h3>
+
+<br>
+
+<button class="action">
+Guardar Pedido
+</button>
+</div>
+
+</div>
+
+<!-- CALENDARIO -->
+<div id="calendario" class="section">
+
+<div class="card">
+<h2>Calendario de Pedidos</h2>
+
+<p>
+Aquí aparecerán todos los pedidos organizados por fecha.
+</p>
+
+<br>
+
+<button class="action">
+Descargar PDF del Día
+</button>
+
+</div>
+
+</div>
+
+<!-- CLIENTES -->
+<div id="clientes" class="section">
+
+<div class="card">
+
+<h2>Clientes</h2>
+
+<input type="text" placeholder="Nombre">
+
+<input type="text" placeholder="Dirección">
+
+<button class="action">
+Guardar Cliente
+</button>
+
+<br><br>
+
+<input type="file">
+
+<button class="action">
+Importar Excel
+</button>
+
+<button class="delete">
+Borrar Todos
+</button>
+
+</div>
+
+<div class="card">
+
+<table>
+
+<tr>
+<th>Cliente</th>
+<th>Dirección</th>
+<th>Acción</th>
+</tr>
+
+<tr>
+<td>Cliente Ejemplo</td>
+<td>Calle Principal 1</td>
+<td>
+<button class="delete">X</button>
+</td>
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- PRODUCTOS -->
+<div id="productos" class="section">
+
+<div class="card">
+
+<h2>Productos</h2>
+
+<input type="text" placeholder="Nombre producto">
+
+<input type="number" placeholder="Precio por Kg">
+
+<button class="action">
+Guardar Producto
+</button>
+
+<br><br>
+
+<input type="file">
+
+<button class="action">
+Importar Excel
+</button>
+
+<button class="delete">
+Borrar Todos
+</button>
+
+</div>
+
+<div class="card">
+
+<table>
+
+<tr>
+<th>Producto</th>
+<th>Precio/Kg</th>
+<th>Acción</th>
+</tr>
+
+<tr>
+<td>Solomillo</td>
+<td>15 €</td>
+<td>
+<button class="delete">X</button>
+</td>
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ESTADISTICAS -->
+<div id="estadisticas" class="section">
+
+<div class="card">
+
+<h2>Estadísticas</h2>
+
+<p>Total facturado: 0 €</p>
+<p>Pedidos realizados: 0</p>
+<p>Cliente principal: -</p>
+<p>Producto más vendido: -</p>
+
+</div>
+
+</div>
+
+<script>
+function showSection(sectionId){
+
+document.querySelectorAll('.section')
+.forEach(section=>{
+section.classList.remove('active');
+});
+
+document.getElementById(sectionId)
+.classList.add('active');
+}
+</script>
+
+</body>
+</html>
