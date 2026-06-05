@@ -214,10 +214,16 @@ Descargar PDF del Día
 
 <!-- CLIENTES -->
 <!-- CLIENTES -->
-<div id="clientes" class="section">
+<label>Cliente</label>
 
-<div class="card">
+<input
+type="text"
+id="pedidoCliente"
+list="listaClientes"
+placeholder="Escribe para buscar cliente">
 
+<datalist id="listaClientes">
+</datalist>
 <h2>Clientes</h2>
 
 <input id="clienteNombre" type="text" placeholder="Nombre">
