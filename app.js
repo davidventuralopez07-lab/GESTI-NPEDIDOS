@@ -1,6 +1,10 @@
 let clientes = JSON.parse(localStorage.getItem("clientes")) || [];
 let productos = JSON.parse(localStorage.getItem("productos")) || [];
 
+/* =========================
+   GUARDAR DATOS
+========================= */
+
 function guardarClientes() {
     localStorage.setItem("clientes", JSON.stringify(clientes));
 }
@@ -9,30 +13,30 @@ function guardarProductos() {
     localStorage.setItem("productos", JSON.stringify(productos));
 }
 
-/* CLIENTES */
+/* =========================
+   CLIENTES
+========================= */
 
 function agregarCliente() {
 
-    const nombre = document.getElementById("clienteNombre");
-    const direccion = document.getElementById("clienteDireccion");
+    const nombre = document.getElementById("clienteNombre").value.trim();
+    const direccion = document.getElementById("clienteDireccion").value.trim();
 
-    if (!nombre || !direccion) return;
-
-    if (nombre.value.trim() === "" || direccion.value.trim() === "") {
+    if (nombre === "" || direccion === "") {
         alert("Completa todos los campos");
         return;
     }
 
     clientes.push({
-        nombre: nombre.value,
-        direccion: direccion.value
+        nombre: nombre,
+        direccion: direccion
     });
 
     guardarClientes();
     renderClientes();
 
-    nombre.value = "";
-    direccion.value = "";
+    document.getElementById("clienteNombre").value = "";
+    document.getElementById("clienteDireccion").value = "";
 }
 
 function renderClientes() {
@@ -50,8 +54,8 @@ function renderClientes() {
             <td>${cliente.nombre}</td>
             <td>${cliente.direccion}</td>
             <td>
-                <button onclick="eliminarCliente(${index})">
-                    ❌
+                <button class="delete" onclick="eliminarCliente(${index})">
+                    X
                 </button>
             </td>
         </tr>
@@ -77,30 +81,32 @@ function borrarClientes() {
     renderClientes();
 }
 
-/* PRODUCTOS */
+/* =========================
+   PRODUCTOS
+========================= */
 
 function agregarProducto() {
 
-    const nombre = document.getElementById("productoNombre");
-    const precio = document.getElementById("productoPrecio");
+    const nombre = document.getElementById("productoNombre").value.trim();
+    const precio = parseFloat(
+        document.getElementById("productoPrecio").value
+    );
 
-    if (!nombre || !precio) return;
-
-    if (nombre.value.trim() === "" || precio.value.trim() === "") {
+    if (nombre === "" || isNaN(precio)) {
         alert("Completa todos los campos");
         return;
     }
 
     productos.push({
-        nombre: nombre.value,
-        precio: parseFloat(precio.value)
+        nombre: nombre,
+        precio: precio
     });
 
     guardarProductos();
     renderProductos();
 
-    nombre.value = "";
-    precio.value = "";
+    document.getElementById("productoNombre").value = "";
+    document.getElementById("productoPrecio").value = "";
 }
 
 function renderProductos() {
@@ -116,10 +122,10 @@ function renderProductos() {
         tabla.innerHTML += `
         <tr>
             <td>${producto.nombre}</td>
-            <td>${producto.precio} €</td>
+            <td>${producto.precio.toFixed(2)} €</td>
             <td>
-                <button onclick="eliminarProducto(${index})">
-                    ❌
+                <button class="delete" onclick="eliminarProducto(${index})">
+                    X
                 </button>
             </td>
         </tr>
@@ -145,12 +151,15 @@ function borrarProductos() {
     renderProductos();
 }
 
-/* CAMBIO DE PESTAÑAS */
+/* =========================
+   NAVEGACIÓN
+========================= */
 
-function mostrar(sectionId){
-    document.querySelectorAll(".panel, .section")
-        .forEach(seccion => {
-            seccion.classList.remove("active");
+function mostrar(sectionId) {
+
+    document.querySelectorAll(".section")
+        .forEach(section => {
+            section.classList.remove("active");
         });
 
     const destino = document.getElementById(sectionId);
@@ -160,7 +169,9 @@ function mostrar(sectionId){
     }
 }
 
-/* INICIO */
+/* =========================
+   INICIO
+========================= */
 
 window.onload = function () {
 
