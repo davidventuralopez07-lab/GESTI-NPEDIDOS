@@ -147,8 +147,7 @@ function borrarProductos() {
 
 /* CAMBIO DE PESTAÑAS */
 
-function showSection(sectionId) {
-
+function mostrar(sectionId){
     document.querySelectorAll(".panel, .section")
         .forEach(seccion => {
             seccion.classList.remove("active");
