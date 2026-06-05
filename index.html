@@ -176,14 +176,12 @@ Descargar PDF del Día
 
 <h2>Clientes</h2>
 
-<input type="text" placeholder="Nombre">
+<input id="clienteNombre" type="text" placeholder="Nombre">
+<input id="clienteDireccion" type="text" placeholder="Dirección">
 
-<input type="text" placeholder="Dirección">
-
-<button class="action">
+<button class="action" onclick="agregarCliente()">
 Guardar Cliente
 </button>
-
 <br><br>
 
 <input type="file">
@@ -229,11 +227,11 @@ Borrar Todos
 
 <h2>Productos</h2>
 
-<input type="text" placeholder="Nombre producto">
+<input id="productoNombre" type="text" placeholder="Nombre producto">
 
-<input type="number" placeholder="Precio por Kg">
+<input id="productoPrecio" type="number" placeholder="Precio por Kg">
 
-<button class="action">
+<button class="action" onclick="agregarProducto()">
 Guardar Producto
 </button>
 
