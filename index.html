@@ -170,6 +170,7 @@ Descargar PDF del Día
 </div>
 
 <!-- CLIENTES -->
+<!-- CLIENTES -->
 <div id="clientes" class="section">
 
 <div class="card">
@@ -177,11 +178,13 @@ Descargar PDF del Día
 <h2>Clientes</h2>
 
 <input id="clienteNombre" type="text" placeholder="Nombre">
+
 <input id="clienteDireccion" type="text" placeholder="Dirección">
 
 <button class="action" onclick="agregarCliente()">
 Guardar Cliente
 </button>
+
 <br><br>
 
 <input type="file">
@@ -190,7 +193,7 @@ Guardar Cliente
 Importar Excel
 </button>
 
-<button class="delete">
+<button class="delete" onclick="borrarClientes()">
 Borrar Todos
 </button>
 
@@ -200,26 +203,23 @@ Borrar Todos
 
 <table>
 
+<thead>
 <tr>
 <th>Cliente</th>
 <th>Dirección</th>
 <th>Acción</th>
 </tr>
+</thead>
 
-<tr>
-<td>Cliente Ejemplo</td>
-<td>Calle Principal 1</td>
-<td>
-<button class="delete">X</button>
-</td>
-</tr>
+<tbody id="tablaClientes">
+</tbody>
 
 </table>
 
 </div>
 
 </div>
-
+<!-- PRODUCTOS -->
 <!-- PRODUCTOS -->
 <div id="productos" class="section">
 
@@ -243,7 +243,7 @@ Guardar Producto
 Importar Excel
 </button>
 
-<button class="delete">
+<button class="delete" onclick="borrarProductos()">
 Borrar Todos
 </button>
 
@@ -253,19 +253,16 @@ Borrar Todos
 
 <table>
 
+<thead>
 <tr>
 <th>Producto</th>
 <th>Precio/Kg</th>
 <th>Acción</th>
 </tr>
+</thead>
 
-<tr>
-<td>Solomillo</td>
-<td>15 €</td>
-<td>
-<button class="delete">X</button>
-</td>
-</tr>
+<tbody id="tablaProductos">
+</tbody>
 
 </table>
 
