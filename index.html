@@ -193,25 +193,33 @@ Guardar Pedido
 
 </div>
 <!-- CALENDARIO -->
+<!-- CALENDARIO -->
 <div id="calendario" class="section">
 
 <div class="card">
+
 <h2>Calendario de Pedidos</h2>
 
-<p>
-Aquí aparecerán todos los pedidos organizados por fecha.
-</p>
+<label>Seleccionar fecha</label>
 
-<br>
+<input type="date" id="fechaConsulta">
 
-<button class="action">
-Descargar PDF del Día
+<button class="action" onclick="verPedidosFecha()">
+Ver Pedidos
 </button>
 
+<button class="action" onclick="descargarPDF()">
+Descargar PDF
+</button>
+
+<br><br>
+
+<div id="resultadoCalendario">
 </div>
 
 </div>
 
+</div>
 <!-- CLIENTES -->
 <!-- CLIENTES -->
 <label>Cliente</label>
